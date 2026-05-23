@@ -13,12 +13,13 @@ import {
   Palmtree,
 } from "lucide-react";
 import { getVilla, VILLAS, formatIDR } from "@/data/villas";
+import type { Villa } from "@/data/villas";
 import { VillaCard } from "@/components/VillaCard";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { WA_DISPLAY, WA_NUMBER } from "@/lib/whatsapp";
 
 export const Route = createFileRoute("/villas/$slug")({
-  loader: ({ params }) => {
+  loader: ({ params }): { villa: Villa } => {
     const villa = getVilla(params.slug);
     if (!villa) throw notFound();
     return { villa };
