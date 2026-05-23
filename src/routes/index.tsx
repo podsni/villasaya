@@ -1,8 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import heroImg from "@/assets/hero-villa-batu.jpg";
-import villa1 from "@/assets/villa-1.jpg";
 import villa2 from "@/assets/villa-2.jpg";
 import villa3 from "@/assets/villa-3.jpg";
 import {
@@ -13,7 +11,6 @@ import {
   ShieldCheck,
   Sparkles,
   Palmtree,
-  Heart,
   ArrowRight,
   Star,
   Check,
@@ -24,63 +21,34 @@ import {
   Instagram,
   Music2,
   Phone,
+  Search,
 } from "lucide-react";
+import { WA_NUMBER, WA_DISPLAY, IG_URL, TIKTOK_URL, waLink } from "@/lib/whatsapp";
+import { getFeaturedVillas, PRICE_MIN, PRICE_MAX } from "@/data/villas";
+import type { Area } from "@/data/villas";
+import { VillaCard } from "@/components/VillaCard";
 
-const WA_NUMBER = "6281336664592";
-const WA_DISPLAY = "+62 813-3666-4592";
-const IG_URL = "https://www.instagram.com/apamurahbanget_/";
-const TIKTOK_URL = "https://www.tiktok.com/@apamurahbanget_";
-
-function waLink(message: string) {
-  return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
-}
+const DEFAULT_SEARCH = {
+  q: "",
+  area: [] as Area[],
+  category: [],
+  amenity: [],
+  minPrice: PRICE_MIN,
+  maxPrice: PRICE_MAX,
+  guests: 1,
+  sort: "recommended" as const,
+};
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
 const areas = [
-  { name: "Songgoriti", from: "Rp 850 rb", count: "32 villa" },
-  { name: "Batu Kota", from: "Rp 1,1 jt", count: "48 villa" },
-  { name: "Bumiaji", from: "Rp 950 rb", count: "26 villa" },
-  { name: "Pujon", from: "Rp 1,3 jt", count: "18 villa" },
-  { name: "Coban Rondo", from: "Rp 1,4 jt", count: "14 villa" },
-];
-
-const villas = [
-  {
-    img: villa1,
-    tag: "Populer",
-    name: "Villa Asana Pinus",
-    address: "Songgoriti, Batu",
-    rating: 4.9,
-    reviews: 184,
-    specs: ["3 KT", "3 KM", "6 Tamu", "Private Pool"],
-    chips: ["Kolam Pribadi", "Karaoke", "BBQ", "Wi-Fi"],
-    price: "Rp 1.850.000",
-  },
-  {
-    img: villa2,
-    tag: "Baru",
-    name: "Villa Bukit Pandang",
-    address: "Bumiaji, Batu",
-    rating: 4.8,
-    reviews: 96,
-    specs: ["4 KT", "4 KM", "8 Tamu", "Infinity Pool"],
-    chips: ["Mountain View", "Pemanas Air", "Sunset Deck"],
-    price: "Rp 2.450.000",
-  },
-  {
-    img: villa3,
-    tag: "Hemat",
-    name: "Villa Pinewood Coban",
-    address: "Pujon, Batu",
-    rating: 4.7,
-    reviews: 132,
-    specs: ["2 KT", "2 KM", "4 Tamu", "Mountain View"],
-    chips: ["Perapian", "Taman", "Wi-Fi"],
-    price: "Rp 950.000",
-  },
+  { name: "Songgoriti" as Area, from: "Rp 850 rb", count: "Villa kolam pribadi" },
+  { name: "Batu Kota" as Area, from: "Rp 1,1 jt", count: "Dekat pusat kota" },
+  { name: "Bumiaji" as Area, from: "Rp 1,7 jt", count: "View pegunungan" },
+  { name: "Pujon" as Area, from: "Rp 950 rb", count: "Sejuk & tenang" },
+  { name: "Coban Rondo" as Area, from: "Rp 1,4 jt", count: "Dekat wisata" },
 ];
 
 const stats = [
