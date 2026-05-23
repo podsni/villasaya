@@ -57,7 +57,7 @@ export const Route = createFileRoute("/villas/")({
 
 function VillasList() {
   const search = Route.useSearch();
-  const navigate = useNavigate({ from: Route.fullPath });
+  const navigate = useNavigate({ from: "/villas" });
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [qInput, setQInput] = useState(search.q);
 
