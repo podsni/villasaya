@@ -1,4 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import type { z as zType } from "zod";
 import { zodValidator, fallback } from "@tanstack/zod-adapter";
 import { z } from "zod";
 import { useMemo, useState } from "react";
@@ -34,6 +35,8 @@ const searchSchema = z.object({
   guests: fallback(z.number().int().min(1).max(20), 1).default(1),
   sort: fallback(sortSchema, "recommended").default("recommended"),
 });
+
+type SearchValues = zType.infer<typeof searchSchema>;
 
 export const Route = createFileRoute("/villas/")({
   validateSearch: zodValidator(searchSchema),
@@ -96,7 +99,7 @@ function VillasList() {
 
   const handleFilterChange = (next: Partial<FilterValues>) => {
     navigate({
-      search: (prev) => ({
+      search: (prev: SearchValues) => ({
         ...prev,
         ...(next.areas !== undefined && { area: next.areas as never }),
         ...(next.categories !== undefined && { category: next.categories as never }),
@@ -142,7 +145,7 @@ function VillasList() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              navigate({ search: (prev) => ({ ...prev, q: qInput }), replace: true });
+              navigate({ search: (prev: SearchValues) => ({ ...prev, q: qInput }), replace: true });
             }}
             className="flex flex-1 items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 shadow-[var(--shadow-soft)] sm:max-w-md"
           >
@@ -159,7 +162,7 @@ function VillasList() {
                 type="button"
                 onClick={() => {
                   setQInput("");
-                  navigate({ search: (prev) => ({ ...prev, q: "" }), replace: true });
+                  navigate({ search: (prev: SearchValues) => ({ ...prev, q: "" }), replace: true });
                 }}
                 className="grid h-6 w-6 place-items-center rounded-full text-muted-foreground hover:bg-secondary"
                 aria-label="Bersihkan"
@@ -204,7 +207,10 @@ function VillasList() {
               value={search.sort}
               onChange={(e) =>
                 navigate({
-                  search: (prev) => ({ ...prev, sort: e.target.value as never }),
+                  search: (prev: SearchValues) => ({
+                    ...prev,
+                    sort: e.target.value as SearchValues["sort"],
+                  }),
                   replace: true,
                 })
               }
