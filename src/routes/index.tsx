@@ -344,21 +344,23 @@ function Stats() {
 
 function Villas() {
   return (
-    <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 sm:pb-20">
+    <section id="villas" className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 sm:pb-20 scroll-mt-20">
       <div className="mb-6 flex items-end justify-between gap-4 sm:mb-8">
         <div>
           <h2 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
-            Rekomendasi untukmu
+            Rekomendasi Villa di Batu
           </h2>
           <p className="mt-2 text-sm text-muted-foreground">
-            Villa pilihan dari host terverifikasi.
+            Properti terseleksi dari host tepercaya.
           </p>
         </div>
         <a
-          href="#"
+          href={waLink("Halo, saya mau lihat semua villa di Batu.")}
+          target="_blank"
+          rel="noopener noreferrer"
           className="hidden items-center gap-1 whitespace-nowrap text-sm font-medium text-primary hover:underline sm:inline-flex"
         >
-          Lihat Semua <ArrowRight className="h-4 w-4" />
+          Tanya Semua <ArrowRight className="h-4 w-4" />
         </a>
       </div>
       <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-3">
@@ -419,9 +421,17 @@ function Villas() {
                   </div>
                   <div className="text-xs text-muted-foreground">/malam</div>
                 </div>
-                <button className="inline-flex items-center gap-1 rounded-md border border-border bg-background px-3 py-2 text-xs font-medium text-foreground transition-colors hover:bg-secondary">
-                  Lihat Detail <ArrowRight className="h-3.5 w-3.5" />
-                </button>
+                <a
+                  href={waLink(
+                    `Halo Apamurahbanget, saya mau pesan ${a.name} (${a.address}). Mohon info ketersediaan & harga.`,
+                  )}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-2 text-xs font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+                >
+                  <MessageCircle className="h-3.5 w-3.5" />
+                  Pesan WA
+                </a>
               </div>
             </div>
           </article>
@@ -433,26 +443,25 @@ function Villas() {
 
 function Experience() {
   const points = [
-    "Ribuan villa pilihan di destinasi terbaik Indonesia",
+    "Villa pilihan di Batu, sudah kami seleksi langsung",
     "Harga jujur—tanpa biaya tersembunyi",
-    "Booking instan dalam hitungan menit",
-    "Tim bantuan siap 24/7 selama liburan",
+    "Pesan cepat lewat WhatsApp, balasan menit-menitan",
+    "Tim bantuan siap 24/7 selama liburanmu",
   ];
   return (
-    <section className="border-t border-border bg-[var(--surface)]">
+    <section id="about" className="border-t border-border bg-[var(--surface)] scroll-mt-20">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 py-14 sm:px-6 sm:py-20 md:grid-cols-2 md:items-center md:gap-12">
         <div>
           <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">
-            <Waves className="h-3.5 w-3.5 text-primary" /> Mengapa Apamurahbanget
+            <Mountain className="h-3.5 w-3.5 text-primary" /> Mengapa Apamurahbanget
           </span>
           <h2 className="mt-5 text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
-            Liburan tenang,
+            Liburan tenang di Batu,
             <br className="hidden sm:block" /> villa yang bisa diandalkan.
           </h2>
           <p className="mt-4 max-w-lg text-sm text-muted-foreground sm:text-base">
-            Dari pencarian sampai check-in, semuanya kami rancang biar
-            liburanmu di Bali, Bandung, atau Lombok terasa benar-benar
-            liburan.
+            Dari memilih villa sampai check-in, semuanya kami bantu biar
+            liburanmu di Batu jadi pengalaman menginap yang tak terlupakan.
           </p>
           <ul className="mt-8 space-y-3">
             {points.map((p) => (
@@ -465,12 +474,20 @@ function Experience() {
             ))}
           </ul>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <button className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-soft)] hover:opacity-90">
-              Cari Villa <ArrowRight className="h-4 w-4" />
-            </button>
-            <button className="rounded-md border border-border bg-card px-5 py-2.5 text-sm font-medium text-foreground hover:bg-secondary">
-              Pelajari Lebih
-            </button>
+            <a
+              href={waLink("Halo, saya mau konsultasi villa di Batu.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-soft)] hover:opacity-90"
+            >
+              <MessageCircle className="h-4 w-4" /> Chat WhatsApp
+            </a>
+            <a
+              href="#villas"
+              className="inline-flex items-center justify-center rounded-md border border-border bg-card px-5 py-2.5 text-sm font-medium text-foreground hover:bg-secondary"
+            >
+              Lihat Villa
+            </a>
           </div>
         </div>
 
@@ -487,7 +504,7 @@ function Experience() {
                 ))}
               </div>
               <p className="mt-2 text-xs text-muted-foreground">
-                Rata-rata dari 12.000+ ulasan tamu terverifikasi.
+                Rata-rata dari ribuan ulasan tamu di Batu.
               </p>
             </div>
           </div>
@@ -496,7 +513,7 @@ function Experience() {
               <ShieldCheck className="h-6 w-6 text-accent" />
               <h3 className="mt-3 text-sm font-semibold text-foreground">Diverifikasi 100%</h3>
               <p className="mt-1 text-xs text-muted-foreground">
-                Setiap villa dan host melewati proses verifikasi ketat.
+                Setiap villa di Batu kami seleksi langsung sebelum tayang.
               </p>
             </div>
             <div className="overflow-hidden rounded-2xl border border-border">
