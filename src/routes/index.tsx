@@ -1,8 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import heroImg from "@/assets/hero-villa-batu.jpg";
-import villa1 from "@/assets/villa-1.jpg";
 import villa2 from "@/assets/villa-2.jpg";
 import villa3 from "@/assets/villa-3.jpg";
 import {
@@ -13,7 +11,6 @@ import {
   ShieldCheck,
   Sparkles,
   Palmtree,
-  Heart,
   ArrowRight,
   Star,
   Check,
@@ -24,63 +21,34 @@ import {
   Instagram,
   Music2,
   Phone,
+  Search,
 } from "lucide-react";
+import { WA_NUMBER, WA_DISPLAY, IG_URL, TIKTOK_URL, waLink } from "@/lib/whatsapp";
+import { getFeaturedVillas, PRICE_MIN, PRICE_MAX } from "@/data/villas";
+import type { Area } from "@/data/villas";
+import { VillaCard } from "@/components/VillaCard";
 
-const WA_NUMBER = "6281336664592";
-const WA_DISPLAY = "+62 813-3666-4592";
-const IG_URL = "https://www.instagram.com/apamurahbanget_/";
-const TIKTOK_URL = "https://www.tiktok.com/@apamurahbanget_";
-
-function waLink(message: string) {
-  return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
-}
+const DEFAULT_SEARCH = {
+  q: "",
+  area: [] as Area[],
+  category: [],
+  amenity: [],
+  minPrice: PRICE_MIN,
+  maxPrice: PRICE_MAX,
+  guests: 1,
+  sort: "recommended" as const,
+};
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
 const areas = [
-  { name: "Songgoriti", from: "Rp 850 rb", count: "32 villa" },
-  { name: "Batu Kota", from: "Rp 1,1 jt", count: "48 villa" },
-  { name: "Bumiaji", from: "Rp 950 rb", count: "26 villa" },
-  { name: "Pujon", from: "Rp 1,3 jt", count: "18 villa" },
-  { name: "Coban Rondo", from: "Rp 1,4 jt", count: "14 villa" },
-];
-
-const villas = [
-  {
-    img: villa1,
-    tag: "Populer",
-    name: "Villa Asana Pinus",
-    address: "Songgoriti, Batu",
-    rating: 4.9,
-    reviews: 184,
-    specs: ["3 KT", "3 KM", "6 Tamu", "Private Pool"],
-    chips: ["Kolam Pribadi", "Karaoke", "BBQ", "Wi-Fi"],
-    price: "Rp 1.850.000",
-  },
-  {
-    img: villa2,
-    tag: "Baru",
-    name: "Villa Bukit Pandang",
-    address: "Bumiaji, Batu",
-    rating: 4.8,
-    reviews: 96,
-    specs: ["4 KT", "4 KM", "8 Tamu", "Infinity Pool"],
-    chips: ["Mountain View", "Pemanas Air", "Sunset Deck"],
-    price: "Rp 2.450.000",
-  },
-  {
-    img: villa3,
-    tag: "Hemat",
-    name: "Villa Pinewood Coban",
-    address: "Pujon, Batu",
-    rating: 4.7,
-    reviews: 132,
-    specs: ["2 KT", "2 KM", "4 Tamu", "Mountain View"],
-    chips: ["Perapian", "Taman", "Wi-Fi"],
-    price: "Rp 950.000",
-  },
+  { name: "Songgoriti" as Area, from: "Rp 850 rb", count: "Villa kolam pribadi" },
+  { name: "Batu Kota" as Area, from: "Rp 1,1 jt", count: "Dekat pusat kota" },
+  { name: "Bumiaji" as Area, from: "Rp 1,7 jt", count: "View pegunungan" },
+  { name: "Pujon" as Area, from: "Rp 950 rb", count: "Sejuk & tenang" },
+  { name: "Coban Rondo" as Area, from: "Rp 1,4 jt", count: "Dekat wisata" },
 ];
 
 const stats = [
@@ -104,12 +72,6 @@ function Logo() {
 }
 
 function Nav() {
-  const items = [
-    { label: "Villa", href: "#villas" },
-    { label: "Area", href: "#areas" },
-    { label: "Tentang", href: "#about" },
-    { label: "Kontak", href: "#contact" },
-  ];
   const [open, setOpen] = useState(false);
   const waHref = waLink(
     "Halo Apamurahbanget, saya mau tanya ketersediaan villa di Batu.",
@@ -119,15 +81,16 @@ function Nav() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
         <Logo />
         <nav className="hidden items-center gap-8 lg:flex">
-          {items.map((i) => (
-            <a
-              key={i.label}
-              href={i.href}
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {i.label}
-            </a>
-          ))}
+          <Link
+            to="/villas"
+            search={DEFAULT_SEARCH}
+            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Semua Villa
+          </Link>
+          <a href="#areas" className="text-sm text-muted-foreground hover:text-foreground">Area</a>
+          <a href="#about" className="text-sm text-muted-foreground hover:text-foreground">Tentang</a>
+          <a href="#contact" className="text-sm text-muted-foreground hover:text-foreground">Kontak</a>
         </nav>
         <div className="flex items-center gap-2">
           <a
@@ -151,16 +114,17 @@ function Nav() {
         <div className="lg:hidden border-t border-border bg-background">
           <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6">
             <nav className="flex flex-col">
-              {items.map((i) => (
-                <a
-                  key={i.label}
-                  href={i.href}
-                  onClick={() => setOpen(false)}
-                  className="border-b border-border/60 py-3 text-sm text-foreground last:border-b-0"
-                >
-                  {i.label}
-                </a>
-              ))}
+              <Link
+                to="/villas"
+                search={DEFAULT_SEARCH}
+                onClick={() => setOpen(false)}
+                className="border-b border-border/60 py-3 text-sm text-foreground"
+              >
+                Semua Villa
+              </Link>
+              <a href="#areas" onClick={() => setOpen(false)} className="border-b border-border/60 py-3 text-sm text-foreground">Area</a>
+              <a href="#about" onClick={() => setOpen(false)} className="border-b border-border/60 py-3 text-sm text-foreground">Tentang</a>
+              <a href="#contact" onClick={() => setOpen(false)} className="py-3 text-sm text-foreground">Kontak</a>
             </nav>
             <div className="mt-4 flex flex-col gap-2">
               <a
@@ -198,39 +162,34 @@ function Nav() {
 }
 
 function HeroCTA() {
-  const waHref = waLink(
-    "Halo Apamurahbanget, saya tertarik sewa villa di Batu. Mohon info ketersediaan & harga.",
-  );
+  const [q, setQ] = useState("");
+  const navigate = useNavigate();
   return (
-    <div className="rounded-2xl border border-border bg-card p-4 shadow-[var(--shadow-card)] sm:p-5">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
-            Pesan langsung, balasan cepat
-          </p>
-          <p className="mt-1 text-sm font-semibold text-foreground sm:text-base">
-            Tim kami siap bantu cari villa terbaik di Batu untukmu.
-          </p>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        navigate({ to: "/villas", search: { ...DEFAULT_SEARCH, q } });
+      }}
+      className="rounded-2xl border border-border bg-card p-3 shadow-[var(--shadow-card)] sm:p-4"
+    >
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+        <div className="flex flex-1 items-center gap-2 rounded-xl bg-background px-4 py-3">
+          <Search className="h-4 w-4 shrink-0 text-muted-foreground" />
+          <input
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="Cari villa, area, atau fasilitas di Batu…"
+            className="w-full bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
+          />
         </div>
-        <div className="flex flex-col gap-2 sm:flex-row">
-          <a
-            href={waHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-soft)] transition-opacity hover:opacity-90"
-          >
-            <MessageCircle className="h-4 w-4" />
-            Chat WhatsApp
-          </a>
-          <a
-            href="#villas"
-            className="inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-background px-5 py-3 text-sm font-medium text-foreground hover:bg-secondary"
-          >
-            Lihat Villa
-          </a>
-        </div>
+        <button
+          type="submit"
+          className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-soft)] hover:opacity-90"
+        >
+          <Search className="h-4 w-4" /> Cari Villa
+        </button>
       </div>
-    </div>
+    </form>
   );
 }
 
@@ -286,22 +245,20 @@ function Locations() {
             Dari pusat kota sampai pegunungan—pilih suasana liburanmu.
           </p>
         </div>
-        <a
-          href={waLink("Halo, saya mau tanya semua area villa di Batu.")}
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          to="/villas"
+          search={DEFAULT_SEARCH}
           className="hidden items-center gap-1 whitespace-nowrap text-sm font-medium text-primary hover:underline sm:inline-flex"
         >
-          Tanya Area <ArrowRight className="h-4 w-4" />
-        </a>
+          Lihat Semua <ArrowRight className="h-4 w-4" />
+        </Link>
       </div>
       <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-5">
         {areas.map((l) => (
-          <a
+          <Link
             key={l.name}
-            href={waLink(`Halo, saya tertarik villa di area ${l.name}, Batu.`)}
-            target="_blank"
-            rel="noopener noreferrer"
+            to="/villas"
+            search={{ ...DEFAULT_SEARCH, area: [l.name] }}
             className="group relative overflow-hidden rounded-2xl border border-border bg-card p-4 transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)] sm:p-5"
           >
             <div className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full bg-secondary text-secondary-foreground transition-colors group-hover:bg-primary group-hover:text-primary-foreground sm:right-4 sm:top-4">
@@ -312,7 +269,7 @@ function Locations() {
               <p className="mt-1 text-xs text-muted-foreground">{l.count}</p>
               <p className="mt-3 text-sm font-medium text-primary sm:mt-4">Mulai {l.from}</p>
             </div>
-          </a>
+          </Link>
         ))}
       </div>
     </section>
@@ -343,6 +300,7 @@ function Stats() {
 }
 
 function Villas() {
+  const featured = getFeaturedVillas(3);
   return (
     <section id="villas" className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 sm:pb-20 scroll-mt-20">
       <div className="mb-6 flex items-end justify-between gap-4 sm:mb-8">
@@ -354,88 +312,27 @@ function Villas() {
             Properti terseleksi dari host tepercaya.
           </p>
         </div>
-        <a
-          href={waLink("Halo, saya mau lihat semua villa di Batu.")}
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          to="/villas"
+          search={DEFAULT_SEARCH}
           className="hidden items-center gap-1 whitespace-nowrap text-sm font-medium text-primary hover:underline sm:inline-flex"
         >
-          Tanya Semua <ArrowRight className="h-4 w-4" />
-        </a>
+          Lihat Semua Villa <ArrowRight className="h-4 w-4" />
+        </Link>
       </div>
       <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-3">
-        {villas.map((a) => (
-          <article
-            key={a.name}
-            className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-card)]"
-          >
-            <div className="relative overflow-hidden">
-              <img
-                src={a.img}
-                alt={a.name}
-                width={1024}
-                height={768}
-                loading="lazy"
-                className="h-52 w-full object-cover transition-transform duration-500 group-hover:scale-105 sm:h-56"
-              />
-              <span className="absolute left-3 top-3 rounded-full bg-primary px-2.5 py-1 text-[11px] font-semibold text-primary-foreground">
-                {a.tag}
-              </span>
-              <button
-                aria-label="Simpan"
-                className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full bg-white/90 text-foreground backdrop-blur transition-colors hover:bg-white"
-              >
-                <Heart className="h-4 w-4" />
-              </button>
-            </div>
-            <div className="flex flex-1 flex-col p-5">
-              <div className="flex items-start justify-between gap-3">
-                <div className="min-w-0">
-                  <h3 className="text-base font-semibold text-foreground">{a.name}</h3>
-                  <p className="mt-1 text-xs text-muted-foreground">{a.address}</p>
-                </div>
-                <div className="flex shrink-0 items-center gap-1 rounded-md bg-secondary px-2 py-1 text-xs font-medium text-secondary-foreground">
-                  <Star className="h-3 w-3 fill-current text-accent" />
-                  {a.rating} <span className="text-muted-foreground">({a.reviews})</span>
-                </div>
-              </div>
-              <div className="mt-4 flex flex-wrap gap-x-3 gap-y-1 text-xs text-muted-foreground">
-                {a.specs.map((s) => (
-                  <span key={s}>{s}</span>
-                ))}
-              </div>
-              <div className="mt-3 flex flex-wrap gap-1.5">
-                {a.chips.map((c) => (
-                  <span
-                    key={c}
-                    className="rounded-full bg-secondary px-2.5 py-1 text-[11px] font-medium text-secondary-foreground"
-                  >
-                    {c}
-                  </span>
-                ))}
-              </div>
-              <div className="mt-5 flex items-end justify-between border-t border-border pt-4">
-                <div>
-                  <div className="text-lg font-semibold text-foreground tabular-nums">
-                    {a.price}
-                  </div>
-                  <div className="text-xs text-muted-foreground">/malam</div>
-                </div>
-                <a
-                  href={waLink(
-                    `Halo Apamurahbanget, saya mau pesan ${a.name} (${a.address}). Mohon info ketersediaan & harga.`,
-                  )}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-2 text-xs font-semibold text-primary-foreground transition-opacity hover:opacity-90"
-                >
-                  <MessageCircle className="h-3.5 w-3.5" />
-                  Pesan WA
-                </a>
-              </div>
-            </div>
-          </article>
+        {featured.map((v) => (
+          <VillaCard key={v.slug} villa={v} />
         ))}
+      </div>
+      <div className="mt-8 flex justify-center sm:hidden">
+        <Link
+          to="/villas"
+          search={DEFAULT_SEARCH}
+          className="inline-flex items-center gap-1 rounded-md border border-border bg-card px-4 py-2.5 text-sm font-medium text-foreground"
+        >
+          Lihat Semua Villa <ArrowRight className="h-4 w-4" />
+        </Link>
       </div>
     </section>
   );
