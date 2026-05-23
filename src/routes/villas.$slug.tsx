@@ -61,7 +61,7 @@ export const Route = createFileRoute("/villas/$slug")({
 });
 
 function VillaDetail() {
-  const { villa } = Route.useLoaderData();
+  const { villa } = Route.useLoaderData() as { villa: Villa };
   const similar = VILLAS.filter(
     (v) => v.slug !== villa.slug && v.area === villa.area,
   ).slice(0, 3);
