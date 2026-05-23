@@ -311,6 +311,7 @@ function Stats() {
 }
 
 function Villas() {
+  const featured = getFeaturedVillas(3);
   return (
     <section id="villas" className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 sm:pb-20 scroll-mt-20">
       <div className="mb-6 flex items-end justify-between gap-4 sm:mb-8">
@@ -322,88 +323,27 @@ function Villas() {
             Properti terseleksi dari host tepercaya.
           </p>
         </div>
-        <a
-          href={waLink("Halo, saya mau lihat semua villa di Batu.")}
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          to="/villas"
+          search={DEFAULT_SEARCH}
           className="hidden items-center gap-1 whitespace-nowrap text-sm font-medium text-primary hover:underline sm:inline-flex"
         >
-          Tanya Semua <ArrowRight className="h-4 w-4" />
-        </a>
+          Lihat Semua Villa <ArrowRight className="h-4 w-4" />
+        </Link>
       </div>
       <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-3">
-        {villas.map((a) => (
-          <article
-            key={a.name}
-            className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-card)]"
-          >
-            <div className="relative overflow-hidden">
-              <img
-                src={a.img}
-                alt={a.name}
-                width={1024}
-                height={768}
-                loading="lazy"
-                className="h-52 w-full object-cover transition-transform duration-500 group-hover:scale-105 sm:h-56"
-              />
-              <span className="absolute left-3 top-3 rounded-full bg-primary px-2.5 py-1 text-[11px] font-semibold text-primary-foreground">
-                {a.tag}
-              </span>
-              <button
-                aria-label="Simpan"
-                className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full bg-white/90 text-foreground backdrop-blur transition-colors hover:bg-white"
-              >
-                <Heart className="h-4 w-4" />
-              </button>
-            </div>
-            <div className="flex flex-1 flex-col p-5">
-              <div className="flex items-start justify-between gap-3">
-                <div className="min-w-0">
-                  <h3 className="text-base font-semibold text-foreground">{a.name}</h3>
-                  <p className="mt-1 text-xs text-muted-foreground">{a.address}</p>
-                </div>
-                <div className="flex shrink-0 items-center gap-1 rounded-md bg-secondary px-2 py-1 text-xs font-medium text-secondary-foreground">
-                  <Star className="h-3 w-3 fill-current text-accent" />
-                  {a.rating} <span className="text-muted-foreground">({a.reviews})</span>
-                </div>
-              </div>
-              <div className="mt-4 flex flex-wrap gap-x-3 gap-y-1 text-xs text-muted-foreground">
-                {a.specs.map((s) => (
-                  <span key={s}>{s}</span>
-                ))}
-              </div>
-              <div className="mt-3 flex flex-wrap gap-1.5">
-                {a.chips.map((c) => (
-                  <span
-                    key={c}
-                    className="rounded-full bg-secondary px-2.5 py-1 text-[11px] font-medium text-secondary-foreground"
-                  >
-                    {c}
-                  </span>
-                ))}
-              </div>
-              <div className="mt-5 flex items-end justify-between border-t border-border pt-4">
-                <div>
-                  <div className="text-lg font-semibold text-foreground tabular-nums">
-                    {a.price}
-                  </div>
-                  <div className="text-xs text-muted-foreground">/malam</div>
-                </div>
-                <a
-                  href={waLink(
-                    `Halo Apamurahbanget, saya mau pesan ${a.name} (${a.address}). Mohon info ketersediaan & harga.`,
-                  )}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-2 text-xs font-semibold text-primary-foreground transition-opacity hover:opacity-90"
-                >
-                  <MessageCircle className="h-3.5 w-3.5" />
-                  Pesan WA
-                </a>
-              </div>
-            </div>
-          </article>
+        {featured.map((v) => (
+          <VillaCard key={v.slug} villa={v} />
         ))}
+      </div>
+      <div className="mt-8 flex justify-center sm:hidden">
+        <Link
+          to="/villas"
+          search={DEFAULT_SEARCH}
+          className="inline-flex items-center gap-1 rounded-md border border-border bg-card px-4 py-2.5 text-sm font-medium text-foreground"
+        >
+          Lihat Semua Villa <ArrowRight className="h-4 w-4" />
+        </Link>
       </div>
     </section>
   );
