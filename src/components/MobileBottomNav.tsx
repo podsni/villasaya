@@ -13,27 +13,9 @@ type Item = {
 
 const items: Item[] = [
   { key: "home", label: "Beranda", icon: Home, to: "/", match: (p) => p === "/" },
-  {
-    key: "search",
-    label: "Cari",
-    icon: Search,
-    to: "/villas",
-    match: (p) => p.startsWith("/villas"),
-  },
-  {
-    key: "fav",
-    label: "Favorit",
-    icon: Heart,
-    to: "/villas",
-    match: () => false,
-  },
-  {
-    key: "book",
-    label: "Booking",
-    icon: CalendarCheck,
-    href: waLink("Halo Apamurahbanget, saya mau booking villa di Batu."),
-    match: () => false,
-  },
+  { key: "search", label: "Cari", icon: Search, to: "/villas", match: (p) => p.startsWith("/villas") },
+  { key: "fav", label: "Favorit", icon: Heart, href: waLink("Halo Apamurahbanget, saya mau tanya villa favorit di Batu."), match: () => false },
+  { key: "book", label: "Booking", icon: CalendarCheck, href: waLink("Halo Apamurahbanget, saya mau booking villa di Batu."), match: () => false },
 ];
 
 export function MobileBottomNav() {
@@ -42,56 +24,48 @@ export function MobileBottomNav() {
   return (
     <nav
       aria-label="Navigasi utama"
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 backdrop-blur pb-[max(0.4rem,env(safe-area-inset-bottom))] pt-1.5 lg:hidden"
+      className="fixed inset-x-0 bottom-0 z-40 lg:hidden"
+      style={{ paddingBottom: "max(0px, env(safe-area-inset-bottom))" }}
     >
-      <ul className="mx-auto grid max-w-md grid-cols-4">
-        {items.map((it) => {
-          const active = it.match(path);
-          const Icon = it.icon;
-          const content = (
-            <>
-              <span
-                className={
-                  "grid h-9 w-14 place-items-center rounded-full transition-colors " +
-                  (active ? "bg-secondary text-primary" : "text-foreground")
-                }
-              >
-                <Icon className="h-5 w-5" />
-              </span>
-              <span
-                className={
-                  "mt-0.5 text-[11px] " +
-                  (active ? "font-semibold text-primary" : "text-muted-foreground")
-                }
-              >
-                {it.label}
-              </span>
-            </>
-          );
+      <div className="border-t border-border/40 bg-background/92 backdrop-blur-xl">
+        <ul className="mx-auto grid max-w-md grid-cols-4 px-1 py-1">
+          {items.map((it) => {
+            const active = it.match(path);
+            const Icon = it.icon;
 
-          return (
-            <li key={it.key} className="flex">
-              {it.href ? (
-                <a
-                  href={it.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex w-full flex-col items-center justify-center py-1"
-                >
-                  {content}
-                </a>
-              ) : (
-                <Link
-                  to={it.to!}
-                  className="flex w-full flex-col items-center justify-center py-1"
-                >
-                  {content}
-                </Link>
-              )}
-            </li>
-          );
-        })}
-      </ul>
+            const content = (
+              <span className="relative flex flex-col items-center gap-0.5 py-1.5 px-2 w-full">
+                {active && (
+                  <span className="absolute inset-x-1 top-0.5 h-8 rounded-xl bg-primary/10" />
+                )}
+                <span className={"relative z-10 transition-all duration-200 " + (active ? "text-primary scale-110" : "text-muted-foreground")}>
+                  <Icon className={"transition-all duration-200 " + (active ? "h-5 w-5 stroke-[2.2]" : "h-5 w-5 stroke-[1.8]")} />
+                </span>
+                <span className={"relative z-10 text-[10px] font-medium leading-none transition-all duration-200 " + (active ? "text-primary" : "text-muted-foreground")}>
+                  {it.label}
+                </span>
+                {active && (
+                  <span className="absolute bottom-0 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-primary" />
+                )}
+              </span>
+            );
+
+            return (
+              <li key={it.key} className="flex">
+                {it.href ? (
+                  <a href={it.href} target="_blank" rel="noopener noreferrer" className="flex w-full items-center justify-center active:scale-95 transition-transform duration-100">
+                    {content}
+                  </a>
+                ) : (
+                  <Link to={it.to!} className="flex w-full items-center justify-center active:scale-95 transition-transform duration-100">
+                    {content}
+                  </Link>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </nav>
   );
 }

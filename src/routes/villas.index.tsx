@@ -5,12 +5,16 @@ import { z } from "zod";
 import { useMemo, useState } from "react";
 import {
   Search,
+  Search as SearchIcon,
   SlidersHorizontal,
   X,
   ArrowLeft,
   Palmtree,
   MessageCircle,
   ArrowUpDown,
+  Home as HomeIcon,
+  Heart as HeartIcon,
+  CalendarCheck as CalendarIcon,
 } from "lucide-react";
 import {
   AREAS,
@@ -176,7 +180,7 @@ function VillasList() {
         </div>
       </header>
 
-      <div className="mx-auto max-w-7xl px-4 pb-36 pt-5 sm:px-6 sm:pb-10 sm:pt-8">
+      <div className="mx-auto max-w-7xl px-4 pb-44 pt-5 sm:px-6 sm:pb-10 sm:pt-8">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <Link
@@ -193,24 +197,27 @@ function VillasList() {
             </p>
           </div>
           <div className="hidden items-center gap-2 lg:flex">
-            <select
-              value={search.sort}
-              onChange={(e) =>
-                navigate({
-                  search: (prev: SearchValues) => ({
-                    ...prev,
-                    sort: e.target.value as SearchValues["sort"],
-                  }),
-                  replace: true,
-                })
-              }
-              className="rounded-md border border-border bg-card px-3 py-2 text-sm font-medium text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
-            >
-              <option value="recommended">Rekomendasi</option>
-              <option value="price-asc">Harga Termurah</option>
-              <option value="price-desc">Harga Termahal</option>
-              <option value="rating">Rating Tertinggi</option>
-            </select>
+            <div className="relative">
+              <select
+                value={search.sort}
+                onChange={(e) =>
+                  navigate({
+                    search: (prev: SearchValues) => ({
+                      ...prev,
+                      sort: e.target.value as SearchValues["sort"],
+                    }),
+                    replace: true,
+                  })
+                }
+                className="appearance-none rounded-xl border border-border bg-card pl-4 pr-9 py-2 text-sm font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer shadow-[var(--shadow-soft)]"
+              >
+                <option value="recommended">Rekomendasi</option>
+                <option value="price-asc">Harga Termurah</option>
+                <option value="price-desc">Harga Termahal</option>
+                <option value="rating">Rating Tertinggi</option>
+              </select>
+              <ArrowUpDown className="pointer-events-none absolute right-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
+            </div>
           </div>
         </div>
 
@@ -261,7 +268,7 @@ function VillasList() {
 
         <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[280px_1fr]">
           <aside className="hidden lg:block">
-            <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto rounded-2xl border border-border bg-card p-5">
+            <div className="sticky top-24 rounded-2xl border border-border/60 bg-card p-5 shadow-[var(--shadow-soft)]">
               <VillaFilters values={values} onChange={handleFilterChange} onReset={handleReset} />
             </div>
           </aside>
@@ -374,39 +381,78 @@ function VillasList() {
         </div>
       )}
 
-      {/* Mobile filter/sort bar (sits above bottom nav) */}
-      <div className="fixed inset-x-0 bottom-16 z-40 border-t border-border bg-background/95 px-3 py-2 backdrop-blur lg:hidden">
-        <div className="mx-auto flex max-w-7xl items-center gap-2">
-          <button
-            onClick={() => setFiltersOpen(true)}
-            className="relative inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-full border border-border bg-card text-sm font-semibold text-foreground"
-          >
-            <SlidersHorizontal className="h-4 w-4" />
-            Filter
-            {activeCount > 0 && (
-              <span className="rounded-full bg-primary px-1.5 py-0.5 text-[10px] font-semibold text-primary-foreground">
-                {activeCount}
-              </span>
-            )}
-          </button>
-          <button
-            onClick={() => setSortOpen(true)}
-            className="inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-full border border-border bg-card text-sm font-semibold text-foreground"
-          >
-            <ArrowUpDown className="h-4 w-4" />
-            Urutkan
-          </button>
-          <a
-            href="https://wa.me/6281336664592?text=Halo%20Apamurahbanget%2C%20saya%20mau%20tanya%20villa%20di%20Batu."
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Chat WhatsApp"
-            className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-[#25D366] px-4 text-sm font-semibold text-white shadow-md"
-          >
-            <MessageCircle className="h-5 w-5" />
-            WA
-          </a>
+      {/* Mobile filter/sort bar — fused with bottom nav */}
+      <div className="fixed inset-x-0 bottom-0 z-30 lg:hidden">
+        {/* Filter/Sort/WA row */}
+        <div className="border-t border-border/50 bg-background/95 px-3 pt-2 pb-1 backdrop-blur-md">
+          <div className="mx-auto flex max-w-md items-center gap-2">
+            <button
+              onClick={() => setFiltersOpen(true)}
+              className="relative inline-flex h-10 flex-1 items-center justify-center gap-1.5 rounded-xl border border-border bg-card text-sm font-medium text-foreground transition-colors hover:bg-secondary"
+            >
+              <SlidersHorizontal className="h-4 w-4" />
+              Filter
+              {activeCount > 0 && (
+                <span className="rounded-full bg-primary px-1.5 py-0.5 text-[10px] font-bold text-primary-foreground">
+                  {activeCount}
+                </span>
+              )}
+            </button>
+            <button
+              onClick={() => setSortOpen(true)}
+              className="inline-flex h-10 flex-1 items-center justify-center gap-1.5 rounded-xl border border-border bg-card text-sm font-medium text-foreground transition-colors hover:bg-secondary"
+            >
+              <ArrowUpDown className="h-4 w-4" />
+              Urutkan
+            </button>
+            <a
+              href="https://wa.me/6281336664592?text=Halo%20Apamurahbanget%2C%20saya%20mau%20tanya%20villa%20di%20Batu."
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Chat WhatsApp"
+              className="inline-flex h-10 items-center justify-center gap-1.5 rounded-xl bg-[#25D366] px-4 text-sm font-semibold text-white shadow-sm"
+            >
+              <MessageCircle className="h-4 w-4" />
+              WA
+            </a>
+          </div>
         </div>
+        {/* Bottom nav tabs */}
+        <nav
+          aria-label="Navigasi utama"
+          className="border-t border-border/50 bg-background/95 pb-[max(0.4rem,env(safe-area-inset-bottom))] pt-1.5 backdrop-blur-md"
+        >
+          <ul className="mx-auto grid max-w-md grid-cols-4">
+            {[
+              { key: "home", label: "Beranda", icon: "home", to: "/" },
+              { key: "search", label: "Cari", icon: "search", active: true },
+              { key: "fav", label: "Favorit", icon: "heart" },
+              { key: "book", label: "Booking", icon: "calendar", href: "https://wa.me/6281336664592?text=Halo%20Apamurahbanget%2C%20saya%20mau%20booking%20villa%20di%20Batu." },
+            ].map((it) => {
+              const Icon = it.icon === "home" ? HomeIcon : it.icon === "search" ? SearchIcon : it.icon === "heart" ? HeartIcon : CalendarIcon;
+              const active = it.active;
+              const content = (
+                <>
+                  <span className={"grid h-9 w-14 place-items-center rounded-xl transition-all duration-200 " + (active ? "bg-primary/10 text-primary" : "text-muted-foreground")}>
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  <span className={"mt-0.5 text-[11px] " + (active ? "font-semibold text-primary" : "text-muted-foreground")}>
+                    {it.label}
+                  </span>
+                </>
+              );
+              return (
+                <li key={it.key} className="flex">
+                  {it.href ? (
+                    <a href={it.href} target="_blank" rel="noopener noreferrer" className="flex w-full flex-col items-center justify-center py-1">{content}</a>
+                  ) : (
+                    <Link to={it.to ?? "/villas"} className="flex w-full flex-col items-center justify-center py-1">{content}</Link>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
       </div>
 
       <a
