@@ -176,7 +176,7 @@ function VillasList() {
         </div>
       </header>
 
-      <div className="mx-auto max-w-7xl px-4 pb-28 pt-5 sm:px-6 sm:pb-10 sm:pt-8">
+      <div className="mx-auto max-w-7xl px-4 pb-36 pt-5 sm:px-6 sm:pb-10 sm:pt-8">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <Link
@@ -374,8 +374,8 @@ function VillasList() {
         </div>
       )}
 
-      {/* Mobile bottom action bar */}
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 px-3 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur lg:hidden">
+      {/* Mobile filter/sort bar (sits above bottom nav) */}
+      <div className="fixed inset-x-0 bottom-16 z-40 border-t border-border bg-background/95 px-3 py-2 backdrop-blur lg:hidden">
         <div className="mx-auto flex max-w-7xl items-center gap-2">
           <button
             onClick={() => setFiltersOpen(true)}
