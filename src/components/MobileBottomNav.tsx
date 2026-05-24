@@ -13,9 +13,27 @@ type Item = {
 
 const items: Item[] = [
   { key: "home", label: "Beranda", icon: Home, to: "/", match: (p) => p === "/" },
-  { key: "search", label: "Cari", icon: Search, to: "/villas", match: (p) => p.startsWith("/villas") },
-  { key: "fav", label: "Favorit", icon: Heart, href: waLink("Halo Apamurahbanget, saya mau tanya villa favorit di Batu."), match: () => false },
-  { key: "book", label: "Booking", icon: CalendarCheck, href: waLink("Halo Apamurahbanget, saya mau booking villa di Batu."), match: () => false },
+  {
+    key: "search",
+    label: "Cari",
+    icon: Search,
+    to: "/villas",
+    match: (p) => p.startsWith("/villas"),
+  },
+  {
+    key: "fav",
+    label: "Favorit",
+    icon: Heart,
+    href: waLink("Halo Apamurahbanget, saya mau tanya villa favorit di Batu."),
+    match: () => false,
+  },
+  {
+    key: "book",
+    label: "Booking",
+    icon: CalendarCheck,
+    href: waLink("Halo Apamurahbanget, saya mau booking villa di Batu."),
+    match: () => false,
+  },
 ];
 
 export function MobileBottomNav() {
@@ -38,10 +56,25 @@ export function MobileBottomNav() {
                 {active && (
                   <span className="absolute inset-x-1 top-0.5 h-8 rounded-xl bg-primary/10" />
                 )}
-                <span className={"relative z-10 transition-all duration-200 " + (active ? "text-primary scale-110" : "text-muted-foreground")}>
-                  <Icon className={"transition-all duration-200 " + (active ? "h-5 w-5 stroke-[2.2]" : "h-5 w-5 stroke-[1.8]")} />
+                <span
+                  className={
+                    "relative z-10 transition-all duration-200 " +
+                    (active ? "text-primary scale-110" : "text-muted-foreground")
+                  }
+                >
+                  <Icon
+                    className={
+                      "transition-all duration-200 " +
+                      (active ? "h-5 w-5 stroke-[2.2]" : "h-5 w-5 stroke-[1.8]")
+                    }
+                  />
                 </span>
-                <span className={"relative z-10 text-[10px] font-medium leading-none transition-all duration-200 " + (active ? "text-primary" : "text-muted-foreground")}>
+                <span
+                  className={
+                    "relative z-10 text-[10px] font-medium leading-none transition-all duration-200 " +
+                    (active ? "text-primary" : "text-muted-foreground")
+                  }
+                >
                   {it.label}
                 </span>
                 {active && (
@@ -53,11 +86,19 @@ export function MobileBottomNav() {
             return (
               <li key={it.key} className="flex">
                 {it.href ? (
-                  <a href={it.href} target="_blank" rel="noopener noreferrer" className="flex w-full items-center justify-center active:scale-95 transition-transform duration-100">
+                  <a
+                    href={it.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex w-full items-center justify-center active:scale-95 transition-transform duration-100"
+                  >
                     {content}
                   </a>
                 ) : (
-                  <Link to={it.to!} className="flex w-full items-center justify-center active:scale-95 transition-transform duration-100">
+                  <Link
+                    to={it.to!}
+                    className="flex w-full items-center justify-center active:scale-95 transition-transform duration-100"
+                  >
                     {content}
                   </Link>
                 )}

@@ -44,7 +44,11 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Apamurahbanget — Sewa Villa Terbaik di Batu Malang" },
-      { name: "description", content: "Temukan villa terbaik di Batu untuk liburan Anda. Properti terseleksi, harga jujur, pesan cepat lewat WhatsApp." },
+      {
+        name: "description",
+        content:
+          "Temukan villa terbaik di Batu untuk liburan Anda. Properti terseleksi, harga jujur, pesan cepat lewat WhatsApp.",
+      },
     ],
   }),
 });
@@ -79,9 +83,7 @@ function Logo() {
 
 function Nav() {
   const [open, setOpen] = useState(false);
-  const waHref = waLink(
-    "Halo Apamurahbanget, saya mau tanya ketersediaan villa di Batu.",
-  );
+  const waHref = waLink("Halo Apamurahbanget, saya mau tanya ketersediaan villa di Batu.");
   return (
     <header className="sticky top-0 z-40 border-b border-border/50 bg-background/90 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
@@ -94,9 +96,24 @@ function Nav() {
           >
             Semua Villa
           </Link>
-          <a href="#areas" className="text-sm text-muted-foreground transition-colors duration-200 hover:text-primary">Area</a>
-          <a href="#about" className="text-sm text-muted-foreground transition-colors duration-200 hover:text-primary">Tentang</a>
-          <a href="#contact" className="text-sm text-muted-foreground transition-colors duration-200 hover:text-primary">Kontak</a>
+          <a
+            href="#areas"
+            className="text-sm text-muted-foreground transition-colors duration-200 hover:text-primary"
+          >
+            Area
+          </a>
+          <a
+            href="#about"
+            className="text-sm text-muted-foreground transition-colors duration-200 hover:text-primary"
+          >
+            Tentang
+          </a>
+          <a
+            href="#contact"
+            className="text-sm text-muted-foreground transition-colors duration-200 hover:text-primary"
+          >
+            Kontak
+          </a>
         </nav>
         <div className="flex items-center gap-2">
           <a
@@ -128,9 +145,27 @@ function Nav() {
               >
                 Semua Villa
               </Link>
-              <a href="#areas" onClick={() => setOpen(false)} className="border-b border-border/40 py-3 text-sm text-foreground hover:text-primary">Area</a>
-              <a href="#about" onClick={() => setOpen(false)} className="border-b border-border/40 py-3 text-sm text-foreground hover:text-primary">Tentang</a>
-              <a href="#contact" onClick={() => setOpen(false)} className="py-3 text-sm text-foreground hover:text-primary">Kontak</a>
+              <a
+                href="#areas"
+                onClick={() => setOpen(false)}
+                className="border-b border-border/40 py-3 text-sm text-foreground hover:text-primary"
+              >
+                Area
+              </a>
+              <a
+                href="#about"
+                onClick={() => setOpen(false)}
+                className="border-b border-border/40 py-3 text-sm text-foreground hover:text-primary"
+              >
+                Tentang
+              </a>
+              <a
+                href="#contact"
+                onClick={() => setOpen(false)}
+                className="py-3 text-sm text-foreground hover:text-primary"
+              >
+                Kontak
+              </a>
             </nav>
             <div className="mt-4 flex flex-col gap-2">
               <a
@@ -220,8 +255,7 @@ function Hero() {
               </span>
               <h1 className="mt-3 font-serif text-[2rem] leading-[1.1] tracking-tight text-white sm:mt-5 sm:text-4xl md:text-[3.25rem] animate-fade-up">
                 Temukan Villa Impian
-                <br className="hidden sm:block" />
-                {" "}untuk Liburanmu di Batu.
+                <br className="hidden sm:block" /> untuk Liburanmu di Batu.
               </h1>
               <p className="mt-3 text-sm leading-relaxed text-white/85 sm:mt-4 sm:text-base md:text-lg animate-fade-up delay-200">
                 Properti terseleksi, harga jujur, pesan langsung.
@@ -369,8 +403,8 @@ function Experience() {
             <br className="hidden sm:block" /> villa yang bisa diandalkan.
           </h2>
           <p className="mt-4 max-w-lg text-sm leading-relaxed text-muted-foreground sm:text-base">
-            Dari memilih villa sampai check-in, semuanya kami bantu biar
-            liburanmu jadi pengalaman yang tak terlupakan.
+            Dari memilih villa sampai check-in, semuanya kami bantu biar liburanmu jadi pengalaman
+            yang tak terlupakan.
           </p>
           <ul className="mt-8 space-y-3.5">
             {points.map((p) => (
@@ -403,7 +437,12 @@ function Experience() {
         <div className="grid grid-cols-2 gap-3 sm:gap-4">
           <div className="space-y-4">
             <div className="overflow-hidden rounded-2xl">
-              <img src={villa2} alt="Interior villa nyaman di Batu" loading="lazy" className="h-40 w-full object-cover transition-transform duration-500 hover:scale-105 sm:h-56" />
+              <img
+                src={villa2}
+                alt="Interior villa nyaman di Batu"
+                loading="lazy"
+                className="h-40 w-full object-cover transition-transform duration-500 hover:scale-105 sm:h-56"
+              />
             </div>
             <div className="rounded-2xl bg-card p-5 shadow-[var(--shadow-soft)]">
               <div className="font-serif text-3xl text-foreground">4,9</div>
@@ -426,7 +465,12 @@ function Experience() {
               </p>
             </div>
             <div className="overflow-hidden rounded-2xl">
-              <img src={villa3} alt="Villa dengan pemandangan gunung di Batu" loading="lazy" className="h-40 w-full object-cover transition-transform duration-500 hover:scale-105 sm:h-56" />
+              <img
+                src={villa3}
+                alt="Villa dengan pemandangan gunung di Batu"
+                loading="lazy"
+                className="h-40 w-full object-cover transition-transform duration-500 hover:scale-105 sm:h-56"
+              />
             </div>
           </div>
         </div>
@@ -436,14 +480,9 @@ function Experience() {
 }
 
 function Contact() {
-  const waHref = waLink(
-    "Halo Apamurahbanget, saya ingin pesan villa di Batu.",
-  );
+  const waHref = waLink("Halo Apamurahbanget, saya ingin pesan villa di Batu.");
   return (
-    <section
-      id="contact"
-      className="scroll-mt-20 border-t border-border/50 bg-background"
-    >
+    <section id="contact" className="scroll-mt-20 border-t border-border/50 bg-background">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24">
         <div className="overflow-hidden rounded-3xl bg-gradient-to-br from-primary/8 via-[var(--surface)] to-accent/8 p-8 sm:p-12">
           <div className="grid grid-cols-1 gap-10 md:grid-cols-[1.2fr_1fr] md:items-center md:gap-14">
@@ -455,8 +494,8 @@ function Contact() {
                 Pesan villa lewat WhatsApp — mudah dan cepat.
               </h2>
               <p className="mt-3 max-w-lg text-sm leading-relaxed text-muted-foreground sm:text-base">
-                Tim kami bantu cek ketersediaan, kirim foto detail, dan
-                proses booking dari awal sampai check-in.
+                Tim kami bantu cek ketersediaan, kirim foto detail, dan proses booking dari awal
+                sampai check-in.
               </p>
               <div className="mt-7 flex flex-col gap-3 sm:flex-row">
                 <a
@@ -498,9 +537,21 @@ function Contact() {
             </div>
             <ul className="grid gap-3">
               {[
-                { icon: BedDouble, label: "Berbagai tipe villa", desc: "Mulai 2 KT sampai 5+ KT untuk rombongan." },
-                { icon: Bath, label: "Fasilitas lengkap", desc: "Kolam pribadi, BBQ, karaoke, dan view gunung." },
-                { icon: Users, label: "Cocok keluarga & grup", desc: "Pilihan villa untuk 4 hingga 20 tamu." },
+                {
+                  icon: BedDouble,
+                  label: "Berbagai tipe villa",
+                  desc: "Mulai 2 KT sampai 5+ KT untuk rombongan.",
+                },
+                {
+                  icon: Bath,
+                  label: "Fasilitas lengkap",
+                  desc: "Kolam pribadi, BBQ, karaoke, dan view gunung.",
+                },
+                {
+                  icon: Users,
+                  label: "Cocok keluarga & grup",
+                  desc: "Pilihan villa untuk 4 hingga 20 tamu.",
+                },
               ].map((f) => (
                 <li
                   key={f.label}
@@ -531,8 +582,7 @@ function Footer() {
           <div>
             <Logo />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              Sewa villa di Batu jadi mudah — properti terseleksi, pesan lewat
-              WhatsApp.
+              Sewa villa di Batu jadi mudah — properti terseleksi, pesan lewat WhatsApp.
             </p>
             <div className="mt-5 flex items-center gap-2">
               <a
@@ -567,10 +617,38 @@ function Footer() {
           <div>
             <h4 className="text-sm font-semibold text-foreground">Jelajahi</h4>
             <ul className="mt-4 space-y-2.5">
-              <li><a href="#villas" className="text-sm text-muted-foreground transition-colors hover:text-primary">Villa di Batu</a></li>
-              <li><a href="#areas" className="text-sm text-muted-foreground transition-colors hover:text-primary">Area Populer</a></li>
-              <li><a href="#about" className="text-sm text-muted-foreground transition-colors hover:text-primary">Tentang Kami</a></li>
-              <li><a href="#contact" className="text-sm text-muted-foreground transition-colors hover:text-primary">Kontak</a></li>
+              <li>
+                <a
+                  href="#villas"
+                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                >
+                  Villa di Batu
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#areas"
+                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                >
+                  Area Populer
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#about"
+                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                >
+                  Tentang Kami
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#contact"
+                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                >
+                  Kontak
+                </a>
+              </li>
             </ul>
           </div>
           <div>
@@ -578,11 +656,20 @@ function Footer() {
             <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground">
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-primary" />
-                <a href={`tel:+${WA_NUMBER}`} className="transition-colors hover:text-primary">{WA_DISPLAY}</a>
+                <a href={`tel:+${WA_NUMBER}`} className="transition-colors hover:text-primary">
+                  {WA_DISPLAY}
+                </a>
               </li>
               <li className="flex items-center gap-2">
                 <MessageCircle className="h-4 w-4 text-primary" />
-                <a href={waLink("Halo Apamurahbanget!")} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-primary">WhatsApp 24/7</a>
+                <a
+                  href={waLink("Halo Apamurahbanget!")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-primary"
+                >
+                  WhatsApp 24/7
+                </a>
               </li>
               <li className="flex items-center gap-2">
                 <MapPin className="h-4 w-4 text-primary" />

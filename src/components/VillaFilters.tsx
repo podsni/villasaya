@@ -26,10 +26,7 @@ export function VillaFilters({ values, onChange, onReset }: Props) {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-semibold text-foreground">Filter</h3>
-        <button
-          onClick={onReset}
-          className="text-xs font-medium text-primary hover:underline"
-        >
+        <button onClick={onReset} className="text-xs font-medium text-primary hover:underline">
           Reset
         </button>
       </div>
@@ -37,7 +34,10 @@ export function VillaFilters({ values, onChange, onReset }: Props) {
       <Group title="Area">
         <div className="flex flex-col gap-2">
           {AREAS.map((a) => (
-            <label key={a} className="flex cursor-pointer items-center gap-2 text-sm text-foreground">
+            <label
+              key={a}
+              className="flex cursor-pointer items-center gap-2 text-sm text-foreground"
+            >
               <input
                 type="checkbox"
                 checked={values.areas.includes(a)}
@@ -88,7 +88,9 @@ export function VillaFilters({ values, onChange, onReset }: Props) {
                 max={PRICE_MAX}
                 step={50000}
                 value={values.minPrice}
-                onChange={(e) => onChange({ minPrice: Math.min(Number(e.target.value), values.maxPrice) })}
+                onChange={(e) =>
+                  onChange({ minPrice: Math.min(Number(e.target.value), values.maxPrice) })
+                }
                 className="w-full accent-primary"
               />
             </label>
@@ -100,7 +102,9 @@ export function VillaFilters({ values, onChange, onReset }: Props) {
                 max={PRICE_MAX}
                 step={50000}
                 value={values.maxPrice}
-                onChange={(e) => onChange({ maxPrice: Math.max(Number(e.target.value), values.minPrice) })}
+                onChange={(e) =>
+                  onChange({ maxPrice: Math.max(Number(e.target.value), values.minPrice) })
+                }
                 className="w-full accent-primary"
               />
             </label>
@@ -133,7 +137,10 @@ export function VillaFilters({ values, onChange, onReset }: Props) {
       <Group title="Fasilitas">
         <div className="grid grid-cols-1 gap-2">
           {AMENITIES.map((a) => (
-            <label key={a} className="flex cursor-pointer items-center gap-2 text-sm text-foreground">
+            <label
+              key={a}
+              className="flex cursor-pointer items-center gap-2 text-sm text-foreground"
+            >
               <input
                 type="checkbox"
                 checked={values.amenities.includes(a)}
