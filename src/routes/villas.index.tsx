@@ -16,14 +16,7 @@ import {
   Heart as HeartIcon,
   CalendarCheck as CalendarIcon,
 } from "lucide-react";
-import {
-  AREAS,
-  CATEGORIES,
-  AMENITIES,
-  PRICE_MIN,
-  PRICE_MAX,
-  filterVillas,
-} from "@/data/villas";
+import { AREAS, CATEGORIES, AMENITIES, PRICE_MIN, PRICE_MAX, filterVillas } from "@/data/villas";
 import { VillaCard } from "@/components/VillaCard";
 import { VillaFilters, type FilterValues } from "@/components/VillaFilters";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -308,10 +301,7 @@ function VillasList() {
 
       {filtersOpen && (
         <div className="fixed inset-0 z-50 flex lg:hidden">
-          <div
-            className="absolute inset-0 bg-black/40"
-            onClick={() => setFiltersOpen(false)}
-          />
+          <div className="absolute inset-0 bg-black/40" onClick={() => setFiltersOpen(false)} />
           <div className="relative mt-auto flex max-h-[88vh] w-full flex-col rounded-t-2xl bg-background shadow-xl">
             <div className="mx-auto mt-2 h-1.5 w-12 rounded-full bg-muted" />
             <div className="flex items-center justify-between border-b border-border px-4 py-3">
@@ -427,16 +417,38 @@ function VillasList() {
               { key: "home", label: "Beranda", icon: "home", to: "/" },
               { key: "search", label: "Cari", icon: "search", active: true },
               { key: "fav", label: "Favorit", icon: "heart" },
-              { key: "book", label: "Booking", icon: "calendar", href: "https://wa.me/6281336664592?text=Halo%20Apamurahbanget%2C%20saya%20mau%20booking%20villa%20di%20Batu." },
+              {
+                key: "book",
+                label: "Booking",
+                icon: "calendar",
+                href: "https://wa.me/6281336664592?text=Halo%20Apamurahbanget%2C%20saya%20mau%20booking%20villa%20di%20Batu.",
+              },
             ].map((it) => {
-              const Icon = it.icon === "home" ? HomeIcon : it.icon === "search" ? SearchIcon : it.icon === "heart" ? HeartIcon : CalendarIcon;
+              const Icon =
+                it.icon === "home"
+                  ? HomeIcon
+                  : it.icon === "search"
+                    ? SearchIcon
+                    : it.icon === "heart"
+                      ? HeartIcon
+                      : CalendarIcon;
               const active = it.active;
               const content = (
                 <>
-                  <span className={"grid h-9 w-14 place-items-center rounded-xl transition-all duration-200 " + (active ? "bg-primary/10 text-primary" : "text-muted-foreground")}>
+                  <span
+                    className={
+                      "grid h-9 w-14 place-items-center rounded-xl transition-all duration-200 " +
+                      (active ? "bg-primary/10 text-primary" : "text-muted-foreground")
+                    }
+                  >
                     <Icon className="h-5 w-5" />
                   </span>
-                  <span className={"mt-0.5 text-[11px] " + (active ? "font-semibold text-primary" : "text-muted-foreground")}>
+                  <span
+                    className={
+                      "mt-0.5 text-[11px] " +
+                      (active ? "font-semibold text-primary" : "text-muted-foreground")
+                    }
+                  >
                     {it.label}
                   </span>
                 </>
@@ -444,9 +456,21 @@ function VillasList() {
               return (
                 <li key={it.key} className="flex">
                   {it.href ? (
-                    <a href={it.href} target="_blank" rel="noopener noreferrer" className="flex w-full flex-col items-center justify-center py-1">{content}</a>
+                    <a
+                      href={it.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex w-full flex-col items-center justify-center py-1"
+                    >
+                      {content}
+                    </a>
                   ) : (
-                    <Link to={it.to ?? "/villas"} className="flex w-full flex-col items-center justify-center py-1">{content}</Link>
+                    <Link
+                      to={it.to ?? "/villas"}
+                      className="flex w-full flex-col items-center justify-center py-1"
+                    >
+                      {content}
+                    </Link>
                   )}
                 </li>
               );

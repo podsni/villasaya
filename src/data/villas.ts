@@ -3,22 +3,10 @@ import villa2 from "@/assets/villa-2.jpg";
 import villa3 from "@/assets/villa-3.jpg";
 import heroVilla from "@/assets/hero-villa-batu.jpg";
 
-export const AREAS = [
-  "Songgoriti",
-  "Batu Kota",
-  "Bumiaji",
-  "Pujon",
-  "Coban Rondo",
-] as const;
+export const AREAS = ["Songgoriti", "Batu Kota", "Bumiaji", "Pujon", "Coban Rondo"] as const;
 export type Area = (typeof AREAS)[number];
 
-export const CATEGORIES = [
-  "Family",
-  "Group",
-  "Romantic",
-  "Budget",
-  "Premium",
-] as const;
+export const CATEGORIES = ["Family", "Group", "Romantic", "Budget", "Premium"] as const;
 export type Category = (typeof CATEGORIES)[number];
 
 export const AMENITIES = [
@@ -90,7 +78,14 @@ export const VILLAS: Villa[] = [
     images: [villa2, heroVilla, villa1, villa3],
     description:
       "Villa eksklusif di perbukitan Bumiaji dengan infinity pool menghadap pegunungan. Sunset deck luas, dapur lengkap, dan kamar utama dengan bathtub menghadap jendela panorama.",
-    amenities: ["Kolam Pribadi", "Mountain View", "Pemanas Air", "Sunset Deck", "Wi-Fi", "Parkir Luas"],
+    amenities: [
+      "Kolam Pribadi",
+      "Mountain View",
+      "Pemanas Air",
+      "Sunset Deck",
+      "Wi-Fi",
+      "Parkir Luas",
+    ],
     featured: true,
   },
   {
@@ -255,12 +250,15 @@ export function filterVillas(opts: FilterOptions): Villa[] {
   const q = opts.q?.trim().toLowerCase() ?? "";
   let result = VILLAS.filter((v) => {
     if (q) {
-      const hay = `${v.name} ${v.area} ${v.amenities.join(" ")} ${v.category.join(" ")}`.toLowerCase();
+      const hay =
+        `${v.name} ${v.area} ${v.amenities.join(" ")} ${v.category.join(" ")}`.toLowerCase();
       if (!hay.includes(q)) return false;
     }
     if (opts.areas?.length && !opts.areas.includes(v.area)) return false;
-    if (opts.categories?.length && !v.category.some((c) => opts.categories!.includes(c))) return false;
-    if (opts.amenities?.length && !opts.amenities.every((a) => v.amenities.includes(a as Amenity))) return false;
+    if (opts.categories?.length && !v.category.some((c) => opts.categories!.includes(c)))
+      return false;
+    if (opts.amenities?.length && !opts.amenities.every((a) => v.amenities.includes(a as Amenity)))
+      return false;
     if (opts.minPrice != null && v.price < opts.minPrice) return false;
     if (opts.maxPrice != null && v.price > opts.maxPrice) return false;
     if (opts.guests != null && v.guests < opts.guests) return false;

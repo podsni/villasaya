@@ -74,10 +74,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Apamurahbanget — Sewa Villa Terbaik di Batu Malang" },
-      { name: "description", content: "Temukan villa terbaik di Batu untuk liburan Anda. Properti terseleksi, harga jujur, pesan cepat lewat WhatsApp bersama Apamurahbanget." },
+      {
+        name: "description",
+        content:
+          "Temukan villa terbaik di Batu untuk liburan Anda. Properti terseleksi, harga jujur, pesan cepat lewat WhatsApp bersama Apamurahbanget.",
+      },
       { name: "author", content: "Apamurahbanget" },
       { property: "og:title", content: "Apamurahbanget — Sewa Villa Terbaik di Batu Malang" },
-      { property: "og:description", content: "Villa pilihan di Batu untuk pengalaman menginap tak terlupakan. Booking mudah via WhatsApp." },
+      {
+        property: "og:description",
+        content:
+          "Villa pilihan di Batu untuk pengalaman menginap tak terlupakan. Booking mudah via WhatsApp.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
@@ -85,7 +93,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300..600&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300..600&display=swap",
+      },
       {
         rel: "stylesheet",
         href: appCss,

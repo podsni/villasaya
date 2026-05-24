@@ -30,11 +30,7 @@ export function VillaCard({ villa }: { villa: Villa }) {
         </div>
       </Link>
       <div className="flex flex-1 flex-col p-5">
-        <Link
-          to="/villas/$slug"
-          params={{ slug: villa.slug }}
-          className="block"
-        >
+        <Link to="/villas/$slug" params={{ slug: villa.slug }} className="block">
           <h3 className="text-base font-semibold text-foreground transition-colors duration-200 group-hover:text-primary">
             {villa.name}
           </h3>

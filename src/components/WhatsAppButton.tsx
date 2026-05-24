@@ -18,11 +18,9 @@ const sizeMap = {
 };
 
 const variantMap = {
-  primary:
-    "bg-primary text-primary-foreground shadow-[var(--shadow-soft)] hover:opacity-90",
+  primary: "bg-primary text-primary-foreground shadow-[var(--shadow-soft)] hover:opacity-90",
   ghost: "text-foreground hover:bg-secondary",
-  outline:
-    "border border-border bg-card text-foreground hover:bg-secondary",
+  outline: "border border-border bg-card text-foreground hover:bg-secondary",
   wa: "bg-[#25D366] text-white hover:opacity-90",
 };
 

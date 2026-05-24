@@ -62,9 +62,7 @@ export const Route = createFileRoute("/villas/$slug")({
 
 function VillaDetail() {
   const { villa } = Route.useLoaderData() as { villa: Villa };
-  const similar = VILLAS.filter(
-    (v) => v.slug !== villa.slug && v.area === villa.area,
-  ).slice(0, 3);
+  const similar = VILLAS.filter((v) => v.slug !== villa.slug && v.area === villa.area).slice(0, 3);
   const waMessage = `Halo Apamurahbanget, saya tertarik booking ${villa.name} di ${villa.area}, Batu. Mohon info ketersediaan & cara pembayaran.`;
 
   return (
@@ -204,7 +202,8 @@ function VillaDetail() {
               </div>
               <div className="mt-5 space-y-2 border-t border-border pt-4 text-xs text-muted-foreground">
                 <p className="flex items-center gap-2">
-                  <ShieldCheck className="h-3.5 w-3.5 text-accent" /> Villa diverifikasi tim Apamurahbanget
+                  <ShieldCheck className="h-3.5 w-3.5 text-accent" /> Villa diverifikasi tim
+                  Apamurahbanget
                 </p>
                 <p className="flex items-center gap-2">
                   <Clock className="h-3.5 w-3.5 text-accent" /> Respons WhatsApp 24/7
