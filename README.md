@@ -186,7 +186,7 @@ Nomor WA wajib dalam format internasional tanpa `+` (contoh: `62…`).
 
 ## 🚢 Deployment
 
-Project di-deploy melalui Lovable:
+### Lovable (default)
 
 1. Klik **Publish** di pojok kanan atas editor Lovable.
 2. Perubahan frontend butuh klik **Update** di dialog publish agar live.
@@ -194,6 +194,21 @@ Project di-deploy melalui Lovable:
    `project--<id>-dev.lovable.app` (preview).
 4. Custom domain dapat ditambahkan via **Project Settings → Domains**
    setelah publish pertama.
+
+### Vercel
+
+Repo ini sudah disiapkan untuk Vercel via file `vercel.json`:
+
+- Build command: `bun run build && node scripts/generate-vercel-index.mjs`
+- Output directory: `dist/client`
+- Rewrite semua route ke `index.html` agar route TanStack Router seperti
+  `/villas` dan `/villas/:slug` tetap bekerja saat reload direct URL.
+
+Langkah deploy:
+
+1. Import repository ke Vercel.
+2. Biarkan Vercel membaca konfigurasi dari `vercel.json`.
+3. Jalankan deploy (Vercel otomatis menjalankan build command di atas).
 
 ---
 
