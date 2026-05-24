@@ -217,33 +217,33 @@ function VillasList() {
         {activeCount > 0 && (
           <div className="mt-4 flex flex-wrap items-center gap-2 lg:hidden">
             <span className="text-xs text-muted-foreground">Filter aktif:</span>
-            {search.area.map((a) => (
+            {search.area.map((a: string) => (
               <button
                 key={a}
                 onClick={() =>
-                  handleFilterChange({ areas: search.area.filter((x) => x !== a) })
+                  handleFilterChange({ areas: search.area.filter((x: string) => x !== a) })
                 }
                 className="inline-flex items-center gap-1 rounded-full bg-secondary px-2.5 py-1 text-[11px] font-medium text-secondary-foreground"
               >
                 {a} <X className="h-3 w-3" />
               </button>
             ))}
-            {search.category.map((c) => (
+            {search.category.map((c: string) => (
               <button
                 key={c}
                 onClick={() =>
-                  handleFilterChange({ categories: search.category.filter((x) => x !== c) })
+                  handleFilterChange({ categories: search.category.filter((x: string) => x !== c) })
                 }
                 className="inline-flex items-center gap-1 rounded-full bg-secondary px-2.5 py-1 text-[11px] font-medium text-secondary-foreground"
               >
                 {c} <X className="h-3 w-3" />
               </button>
             ))}
-            {search.amenity.map((a) => (
+            {search.amenity.map((a: string) => (
               <button
                 key={a}
                 onClick={() =>
-                  handleFilterChange({ amenities: search.amenity.filter((x) => x !== a) })
+                  handleFilterChange({ amenities: search.amenity.filter((x: string) => x !== a) })
                 }
                 className="inline-flex items-center gap-1 rounded-full bg-secondary px-2.5 py-1 text-[11px] font-medium text-secondary-foreground"
               >
