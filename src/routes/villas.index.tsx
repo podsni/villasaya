@@ -12,9 +12,6 @@ import {
   Palmtree,
   MessageCircle,
   ArrowUpDown,
-  Home as HomeIcon,
-  Heart as HeartIcon,
-  CalendarCheck as CalendarIcon,
 } from "lucide-react";
 import { AREAS, CATEGORIES, AMENITIES, PRICE_MIN, PRICE_MAX, filterVillas } from "@/data/villas";
 import { VillaCard } from "@/components/VillaCard";
@@ -173,7 +170,7 @@ function VillasList() {
         </div>
       </header>
 
-      <div className="mx-auto max-w-7xl px-4 pb-36 pt-5 sm:px-6 sm:pb-10 sm:pt-8">
+      <div className="mx-auto max-w-7xl px-4 pb-28 pt-5 sm:px-6 sm:pb-10 sm:pt-8">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <Link
@@ -371,10 +368,9 @@ function VillasList() {
         </div>
       )}
 
-      {/* Mobile bottom bar */}
-      <div className="fixed inset-x-0 bottom-0 z-30 lg:hidden">
-        {/* Filter/Sort row — no duplicate WA button */}
-        <div className="border-t border-border/50 bg-background/95 px-3 pt-2 pb-1 backdrop-blur-md">
+      {/* Mobile bottom bar — sits above the global MobileBottomNav */}
+      <div className="fixed inset-x-0 bottom-14 z-30 lg:hidden">
+        <div className="border-t border-border/50 bg-background/95 px-3 py-2 backdrop-blur-md shadow-[0_-2px_12px_rgb(0,0,0,0.06)]">
           <div className="mx-auto flex max-w-md items-center gap-2">
             <button
               onClick={() => setFiltersOpen(true)}
@@ -397,76 +393,6 @@ function VillasList() {
             </button>
           </div>
         </div>
-        {/* Bottom nav tabs */}
-        <nav
-          aria-label="Navigasi utama"
-          className="border-t border-border/50 bg-background/95 pb-[max(0.4rem,env(safe-area-inset-bottom))] pt-1.5 backdrop-blur-md"
-        >
-          <ul className="mx-auto grid max-w-md grid-cols-4">
-            {[
-              { key: "home", label: "Beranda", icon: "home", to: "/" },
-              { key: "search", label: "Cari", icon: "search", active: true },
-              { key: "fav", label: "Favorit", icon: "heart" },
-              {
-                key: "book",
-                label: "Booking",
-                icon: "calendar",
-                href: "https://wa.me/6281336664592?text=Halo%20Apamurahbanget%2C%20saya%20mau%20booking%20villa%20di%20Batu.",
-              },
-            ].map((it) => {
-              const Icon =
-                it.icon === "home"
-                  ? HomeIcon
-                  : it.icon === "search"
-                    ? SearchIcon
-                    : it.icon === "heart"
-                      ? HeartIcon
-                      : CalendarIcon;
-              const active = it.active;
-              const content = (
-                <>
-                  <span
-                    className={
-                      "grid h-9 w-14 place-items-center rounded-xl transition-all duration-200 " +
-                      (active ? "bg-primary/10 text-primary" : "text-muted-foreground")
-                    }
-                  >
-                    <Icon className="h-5 w-5" />
-                  </span>
-                  <span
-                    className={
-                      "mt-0.5 text-[11px] " +
-                      (active ? "font-semibold text-primary" : "text-muted-foreground")
-                    }
-                  >
-                    {it.label}
-                  </span>
-                </>
-              );
-              return (
-                <li key={it.key} className="flex">
-                  {it.href ? (
-                    <a
-                      href={it.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex w-full flex-col items-center justify-center py-1"
-                    >
-                      {content}
-                    </a>
-                  ) : (
-                    <Link
-                      to={it.to ?? "/villas"}
-                      className="flex w-full flex-col items-center justify-center py-1"
-                    >
-                      {content}
-                    </Link>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
       </div>
 
       <a
